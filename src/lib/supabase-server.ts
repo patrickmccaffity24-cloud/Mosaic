@@ -10,7 +10,7 @@ export async function createSupabaseServerClient() {
     {
       cookies: {
         getAll() { return cookieStore.getAll(); },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet: { name: string; value: string; options?: any }[]) {
           try {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options)
@@ -22,8 +22,6 @@ export async function createSupabaseServerClient() {
   );
 }
 
-// Admin client (service role) — for server-only operations that bypass RLS.
-// NEVER expose this client or its key to the browser.
 export function createSupabaseAdminClient() {
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
