@@ -1,5 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
-import type { DepartmentKey, Policy } from './design';
+import type { DepartmentKey } from './design';
 
 const EXTRACT_PROMPT = `You are processing a policy document for Mosaic Youth Theatre of Detroit's Policy Portal.
 
@@ -52,16 +52,16 @@ export async function extractPolicyFromPDF(pdfBase64: string): Promise<Extracted
       content: [
         { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: pdfBase64 } },
         { type: 'text', text: EXTRACT_PROMPT },
-      ],
+      ] as any,
     }],
   });
 
-  const textBlock = response.content.find(c => c.type === 'text');
+  const textBlock = response.content.find((c: any) => c.type === 'text');
   if (!textBlock || textBlock.type !== 'text') {
     throw new Error('No text content in API response');
   }
 
-  let raw = textBlock.text.trim();
+  let raw = (textBlock as any).text.trim();
   raw = raw.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```\s*$/, '');
   const match = raw.match(/\{[\s\S]*\}/);
   if (match) raw = match[0];
@@ -73,7 +73,6 @@ export async function extractPolicyFromPDF(pdfBase64: string): Promise<Extracted
     throw new Error(`Claude returned non-JSON: ${raw.slice(0, 200)}`);
   }
 
-  // Validate
   if (!parsed.title || typeof parsed.title !== 'string') throw new Error('Missing or invalid title');
   if (!VALID_DEPTS.includes(parsed.department)) throw new Error(`Invalid department: ${parsed.department}`);
   if (!parsed.summary || typeof parsed.summary !== 'string') throw new Error('Missing summary');
