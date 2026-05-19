@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap');
+
+:root {
+  --black: #0A0A0A;
+  --ink: #1A1A1A;
+  --bone: #F5F1EA;
+  --cream: #EEE7D6;
+  --paper: #FFFFFF;
+  --blue: #1851A8;
+  --red: #DC2626;
+  --green: #5BB91E;
+  --yellow: #F5D318;
+  --pink: #E91E63;
+  --lime: #A6D04A;
+  --orange: #F57C00;
+  --purple: #7B2D8E;
+  --teal: #0FAFA5;
+  --display: 'Archivo Black', Impact, sans-serif;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bone);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+button { font: inherit; }
+input, textarea, select { font: inherit; }
+
+/* utility */
+.italic { font-family: var(--serif); font-style: italic; font-weight: 400; }
+.eyebrow { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 700; }
+.display { font-family: var(--display); letter-spacing: -0.02em; line-height: 0.95; }
